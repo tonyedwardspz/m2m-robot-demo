@@ -6,10 +6,11 @@ namespace
 {
   const byte interrupt_pin_2 = 2;
   const byte interrupt_pin_3 = 3;
-
+  
   auto speed = 200;
-
+  
   volatile char command[2] = " ";
+  unsigned long start_time = 0;
 
   // Instantiate the two motor objects, passing in the side of the robot the motor is on
   Motor left_motor{"left"};
@@ -71,6 +72,7 @@ void check_for_keypress()
     action_x();
     break;
   case 'y':
+    start_time = millis();
     action_y();
     break;
   }
@@ -91,13 +93,22 @@ void action_b()
 // Run away
 void action_x()
 {
-  
+  while (millis() - start_time <= 10000){
+    if (sensor.distance_forwards() < 15){
+      left_motor.reverse(speed);
+      right_motor.reverse(speed);
+    } else {
+      left_motor.forward(speed);
+      right_motor.forward(speed);
+    }
+  }
+  left_motor.stop();
+  right_motor.stop();
 }
 
-// Follow the light
+// Avoid obstacles
 void action_y()
 {
-  
 }
 
 
