@@ -63,12 +63,14 @@ void check_for_keypress()
     right_motor.stop();
     break;
   case 'a':
+    start_time = millis();
     action_a();
     break;
   case 'b':
     action_b();
     break;
   case 'x':
+    start_time = millis();
     action_x();
     break;
   case 'y':
@@ -81,7 +83,11 @@ void check_for_keypress()
 // Follow the light
 void action_a()
 {
-  
+  while (millis() - start_time <= 10000){
+    // Do stuff
+  }
+  left_motor.stop();
+  right_motor.stop();
 }
 
 // User programmed
@@ -109,6 +115,12 @@ void action_x()
 // Avoid obstacles
 void action_y()
 {
+  while (millis() - start_time <= 10000){
+    // Do stuff
+    
+  }
+  left_motor.stop();
+  right_motor.stop();
 }
 
 
