@@ -50,12 +50,12 @@ void check_for_keypress()
     right_motor.reverse(speed);
     break;
   case 'q': // left
-    left_motor.forward(speed);
-    right_motor.reverse(speed);
-    break;
-  case 'e': // right
     left_motor.reverse(speed);
     right_motor.forward(speed);
+    break;
+  case 'e': // right
+    left_motor.forward(speed);
+    right_motor.reverse(speed);
     break;
   case 's': // stop
     left_motor.stop();
