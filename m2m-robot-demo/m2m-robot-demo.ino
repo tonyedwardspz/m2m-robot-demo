@@ -9,6 +9,7 @@ namespace
   
   auto speed = 200;
   auto light_speed = 150;
+  auto full_speed = 255;
   
   volatile char command[2] = " ";
   unsigned long start_time = 0;
@@ -44,12 +45,12 @@ void check_for_keypress()
   }
   switch(command[2]) {
   case 'u':// up
-    left_motor.forward(speed);
-    right_motor.forward(speed);
+    left_motor.forward(full_speed);
+    right_motor.forward(full_speed);
     break;
   case 'd':// down
-    left_motor.reverse(speed);
-    right_motor.reverse(speed);
+    left_motor.reverse(full_speed);
+    right_motor.reverse(full_speed);
     break;
   case 'q': // left
     left_motor.reverse(speed);
@@ -77,6 +78,10 @@ void check_for_keypress()
   case 'y':
     start_time = millis();
     action_y();
+    break;
+  case 'n':
+    left_motor.stop();
+    right_motor.stop();
     break;
   }
 }
@@ -113,7 +118,14 @@ void action_a()
 // User programmed
 void action_b()
 {
-  
+  while (millis() - start_time <= 15000){
+    // Do some cool stuff
+    
+    
+
+  }
+  left_motor.stop();
+  right_motor.stop();
 }
 
 // Run away
@@ -139,11 +151,11 @@ void action_y()
     // Do stuff
     delay(50);
     if (sensor.distance_forwards() > 15){
-      left_motor.forward(speed);
-      right_motor.forward(speed);
+      left_motor.forward(light_speed);
+      right_motor.forward(light_speed);
     } else {
-      left_motor.reverse(speed);
-      right_motor.reverse(speed);
+      left_motor.reverse(light_speed);
+      right_motor.reverse(light_speed);
       delay(400);
       left_motor.forward(speed);
       right_motor.reverse(speed);
