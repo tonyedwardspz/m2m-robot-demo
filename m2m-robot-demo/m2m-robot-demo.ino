@@ -8,6 +8,7 @@ namespace
   const byte interrupt_pin_3 = 3;
   
   auto speed = 200;
+  auto light_speed = 150;
   
   volatile char command[2] = " ";
   unsigned long start_time = 0;
@@ -80,11 +81,30 @@ void check_for_keypress()
   }
 }
 
-// Follow the light
+// Follow the light for 20 seconds
 void action_a()
 {
-  while (millis() - start_time <= 10000){
+  while (millis() - start_time <= 20000){
     // Do stuff
+    
+    if(sensor.center_light_sensor() < sensor.right_light_sensor() && 
+       sensor.center_light_sensor() < sensor.left_light_sensor()){
+        
+      left_motor.forward(light_speed);
+      right_motor.forward(light_speed);
+      delay(100);
+    }
+    else if(sensor.left_light_sensor() < sensor.center_light_sensor()){
+      left_motor.reverse(light_speed);
+      right_motor.forward(light_speed);
+      delay(100);
+    }
+    else if(sensor.right_light_sensor() < sensor.center_light_sensor()){
+      left_motor.forward(light_speed);
+      right_motor.reverse(light_speed);
+      delay(100);
+    }
+
   }
   left_motor.stop();
   right_motor.stop();
