@@ -1,4 +1,4 @@
-#include "NewPing.h"
+#include <NewPing.h>
 #include "Arduino.h"
 #include "Sensor.h"
 
