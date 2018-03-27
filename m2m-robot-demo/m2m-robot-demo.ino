@@ -115,9 +115,20 @@ void action_x()
 // Avoid obstacles
 void action_y()
 {
-  while (millis() - start_time <= 10000){
+  while (millis() - start_time <= 20000){
     // Do stuff
-    
+    delay(50);
+    if (sensor.distance_forwards() > 15){
+      left_motor.forward(speed);
+      right_motor.forward(speed);
+    } else {
+      left_motor.reverse(speed);
+      right_motor.reverse(speed);
+      delay(400);
+      left_motor.forward(speed);
+      right_motor.reverse(speed);
+      delay(1000);
+    }
   }
   left_motor.stop();
   right_motor.stop();
